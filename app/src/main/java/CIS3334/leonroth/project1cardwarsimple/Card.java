@@ -1,18 +1,38 @@
 package CIS3334.leonroth.project1cardwarsimple;
 
-
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import java.util.Arrays;
 
-
-public class Card {
-
+public class Card  {
+    @SerializedName("image")
+    @Expose
     private String image;
+
+    @SerializedName("value")
+    @Expose
     private String value;
+
+    @SerializedName("suit")
+    @Expose
     private String suit;
+
+    @SerializedName("code")
+    @Expose
     private String code;
+
+    public Integer getRank() {
+        this.rank = findRank(value);
+        return this.rank;
+    }
+
+    /*public void setRank(Integer rank) {
+        this.rank = rank;
+    }*/
+
     private Integer rank;
 
-    static final String RANKING[] = {"2","3","4","5","6","7","8","9","0","JACK","QUEEN","KING","ACE"};
+    static final String RANKING[] = {"","","2","3","4","5","6","7","8","9","10","JACK","QUEEN","KING","ACE"};
 
     public Card(String image, String value, String suit, String code) {
         this.image = image;
@@ -57,6 +77,5 @@ public class Card {
     public void setCode(String code) {
         this.code = code;
     }
-
 
 }
