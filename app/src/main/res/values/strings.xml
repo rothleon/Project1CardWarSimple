@@ -8,4 +8,5 @@
     <string name="help">Help</string>
     <string name="image_of_card">Image of Card</string>
     <string name="image_of_stack">Image of Stack</string>
+    <string name="end">End</string>
 </resources>

@@ -34,14 +34,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="right"
                 android:orientation="vertical">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingActionButtonEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:contentDescription="@string/end"
+                    android:foreground="@android:drawable/ic_menu_close_clear_cancel"
+                    android:foregroundGravity="center"
+                    app:fabSize="mini"
+                    app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
                 <ImageView
                     android:id="@+id/imageViewOpponentStack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/cardstack"
-                    android:contentDescription="@string/image_of_stack" />
+                    android:contentDescription="@string/image_of_stack"
+                    app:srcCompat="@drawable/cardstack" />
 
                 <TextView
                     android:id="@+id/textViewOpponentStackLabel"

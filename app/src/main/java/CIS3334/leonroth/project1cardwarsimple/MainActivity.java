@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageViewOpponentCard;
     Button buttonPlay;
     FloatingActionButton floatingActionButtonHelp;
+    FloatingActionButton floatingActionButtonEnd;
     TextView textViewPlayerStack;
     TextView textViewOpponentStack;
     MainViewModel mainViewModel;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupButtonPlay();
         setupFloatingActionButtonHelp();
+        setupFloatingActionButtonEnd();
 
         picasso = Picasso.get();
         //picasso.setLoggingEnabled(true);
@@ -119,6 +121,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Sets up the "End" floating action button's click event handler.
+     * When clicked, it opens the end game dialog.
+     */
+    private void setupFloatingActionButtonEnd() {
+        floatingActionButtonEnd = findViewById(R.id.floatingActionButtonEnd);
+        floatingActionButtonEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                endGameDialog();
+            }
+        });
+    }
+
+    /**
      * Displays an end game dialog with a message based on the game results.
      * Allows the user to start a new game or exit the app.
      */
@@ -126,13 +142,13 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Game Over");
         if(mainViewModel.getPlayerCardListSize() == 0){
-            builder.setMessage("Opponent wins! \n Play Again?");
+            builder.setMessage("Opponent wins!\nPlay Again?");
         }
         else if(mainViewModel.getOpponentCardListSize() == 0){
-            builder.setMessage("Player wins! \n Play Again?");
+            builder.setMessage("Player wins!\nPlay Again?");
         }
         else{
-            builder.setMessage("Well that was weird. \n Play Again?");
+            builder.setMessage("Game ended without a winner.\nPlay Again?");
         }
         builder.setCancelable(false);
 
