@@ -27,7 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/cardback"
+                android:contentDescription="@string/image_of_card" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,7 +40,8 @@
                     android:id="@+id/imageViewOpponentStack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/cardstack" />
+                    app:srcCompat="@drawable/cardstack"
+                    android:contentDescription="@string/image_of_stack" />
 
                 <TextView
                     android:id="@+id/textViewOpponentStackLabel"
@@ -47,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:gravity="center"
-                    android:text="Opponent's Stack" />
+                    android:text="@string/opponent_s_stack" />
 
                 <TextView
                     android:id="@+id/textViewOpponentStack"
@@ -55,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/black"
                     android:gravity="center"
-                    android:text="26"
+                    android:text="@string/_26"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -67,7 +69,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:backgroundTint="@color/white"
-            android:text="Status"
+            android:text="@string/status"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <LinearLayout
@@ -83,7 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/cardback"
+                android:contentDescription="@string/image_of_card" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -96,7 +99,8 @@
                     android:id="@+id/imageViewPlayerStack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/cardstack" />
+                    app:srcCompat="@drawable/cardstack"
+                    android:contentDescription="@string/image_of_stack" />
 
                 <TextView
                     android:id="@+id/textViewPlayerStackLabel"
@@ -104,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:gravity="center"
-                    android:text="Your Stack" />
+                    android:text="@string/your_stack" />
 
                 <TextView
                     android:id="@+id/textViewPlayerStack"
@@ -112,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/black"
                     android:gravity="center"
-                    android:text="26"
+                    android:text="@string/_26"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                     android:textColor="@color/white" />
 
@@ -120,8 +124,8 @@
                     android:id="@+id/buttonPlay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="Play next hand"
-                    android:text="Play next hand"
+                    android:contentDescription="@string/play_next_hand"
+                    android:text="@string/play_next_hand"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -130,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="0dp"
                     android:clickable="true"
-                    android:contentDescription="Help"
+                    android:contentDescription="@string/help"
                     android:cropToPadding="true"
                     android:foreground="@android:drawable/ic_menu_help"
                     android:foregroundGravity="center"

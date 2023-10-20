@@ -14,38 +14,38 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * View Model class for the Card War game application.
+ * This class contains game logic and data management.
+ */
 public class MainViewModel extends AndroidViewModel {
 
     private Card playerCard;
     private Card opponentCard;
-
     private List<Card> playerCardList = new ArrayList<>();
-
     private List<Card> opponentCardList = new ArrayList<>();
-
-    public String getDeck_id() {
-        return deck_id;
-    }
-
-    public void setDeck_id(String deck_id) {
-        this.deck_id = deck_id;
-    }
-
     private String deck_id;
-
-
-
-    final static String BASEURL = "https://www.deckofcardsapi.com/api/deck/";
     private Retrofit retrofit;
-
     private DeckOfCardsService deckOfCardsService;
+    final static String BASEURL = "https://www.deckofcardsapi.com/api/deck/";
 
+
+    /**
+     * Constructor for the MainViewModel class.
+     *
+     * @param application The Android application instance.
+     */
     public MainViewModel (Application application) {
         super(application);
         connect();
         newGame();
     }
 
+    /**
+     * Handles the "Play" button click event. It pulls cards, compares them, and updates the game state.
+     *
+     * @return An array of strings containing game results and card image URLs.
+     */
     public String[] onButtonPlayClick(){
         String[] onButtonOutput = new String[3];
 
@@ -76,9 +76,11 @@ public class MainViewModel extends AndroidViewModel {
         }
 
         return onButtonOutput;
-
     }
 
+    /**
+     * Initializes the Retrofit components for API calls.
+     */
     public void connect() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
@@ -89,6 +91,11 @@ public class MainViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Requests and retrieves a new deck of cards from the API.
+     *
+     * @return The unique identifier of the newly created deck.
+     */
     public String getNewDeck(){
         Call<DeckResponse> call = deckOfCardsService.newDeck();
         call.enqueue(new Callback<DeckResponse>() {
@@ -109,23 +116,24 @@ public class MainViewModel extends AndroidViewModel {
     return deck_id;
     }
 
-
+    /**
+     * Fills a card list with half of the deck's cards. If the specified card list is empty,
+     * it retrieves and populates it with cards from the deck.
+     *
+     * @param cardList The list to be populated with cards (e.g., playerCardList or opponentCardList).
+     */
     public void fillOneCardList(List<Card> cardList ){
-        //cardList = deckOfCardsService.drawHalfDeck(deck_id);
         Call<DeckResponse> call = deckOfCardsService.drawHalfDeck(deck_id);
 
         Log.d("3334", "Looking for card list");
 
-
         if(cardList == playerCardList && playerCardList.isEmpty()) {
-            //Call<DeckResponse> call = deckOfCardsService.drawHalfDeck(deck_id);
             call.enqueue(new Callback<DeckResponse>() {
                 @Override
                 public void onResponse(Call<DeckResponse> call, Response<DeckResponse> response) {
                     if (response.isSuccessful()) {
                         DeckResponse modal = response.body();
                         Log.d("3334", modal.getCards().toString());
-                        //playerCardList.clear();
                         playerCardList = (List<Card>) ((ArrayList<Card>) modal.getCards()).clone();
                         Log.d("3334", "Player Card List Filled " + playerCardList.size());
                         Log.d("3334", modal.getRemaining() + " left in deck");
@@ -139,13 +147,11 @@ public class MainViewModel extends AndroidViewModel {
             });
         }
         else if(opponentCardList.isEmpty()){
-            //Call<DeckResponse> call = deckOfCardsService.drawHalfDeck(deck_id);
             call.enqueue(new Callback<DeckResponse>() {
                 @Override
                 public void onResponse(Call<DeckResponse> call, Response<DeckResponse> response) {
                     if (response.isSuccessful()) {
                         DeckResponse modal = response.body();
-                        //opponentCardList.clear();
                         opponentCardList = (List<Card>) ((ArrayList<Card>) modal.getCards()).clone();
                         Log.d("3334", "Opponent Card List Filled " + opponentCardList.size());
                         Log.d("3334", modal.getRemaining() + " left in deck");
@@ -157,11 +163,12 @@ public class MainViewModel extends AndroidViewModel {
                     Log.d("3334", "List Fill Failed");
                 }
             });
-
-
         }
     }
 
+    /**
+     * Initializes a new game by clearing card lists, retrieving a new deck, and populating the card lists.
+     */
     public void newGame(){
         playerCardList.clear();
         opponentCardList.clear();
@@ -192,15 +199,19 @@ public class MainViewModel extends AndroidViewModel {
         handler.post(opponentPopulate);
     }
 
+    /**
+     * Pulls the top card from a card list.
+     *
+     * @param cardList The card list from which the top card will be pulled.
+     * @return The top card.
+     */
     public Card pullTopCard(List<Card> cardList){
         if(cardList == playerCardList && playerCardList.size() > 0) {
-            //playerCard = ((ArrayDeque<Card>) cardList).removeFirst();
             playerCard = cardList.get(0);
             cardList.remove(0);
             return playerCard;
         }
         else if(cardList == opponentCardList && opponentCardList.size() >0){
-            //opponentCard = ((ArrayDeque<Card>) cardList).removeFirst();
             opponentCard = cardList.get(0);
             cardList.remove(0);
             return opponentCard;
@@ -210,10 +221,21 @@ public class MainViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Adds a card to a card list.
+     *
+     * @param cardList The card list to which the card will be added.
+     * @param card     The card to add to the list.
+     */
     public void cardToList(List<Card> cardList, Card card){
         cardList.add(card);
     }
 
+    /**
+     * Compares the ranks of the player's card and the opponent's card.
+     *
+     * @return 1 if the player wins, -1 if the opponent wins, 0 if it's a tie, 9 if there's an issue.
+     */
     public Integer compareCards(){
         if(playerCard != null && opponentCard != null) {
             if (playerCard.getRank() > opponentCard.getRank()) {
@@ -231,12 +253,21 @@ public class MainViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Retrieves the size of the player's card list.
+     *
+     * @return The size of the player's card list.
+     */
     public Integer getPlayerCardListSize(){
         return playerCardList.size();
     }
 
+    /**
+     * Retrieves the size of the opponent's card list.
+     *
+     * @return The size of the opponent's card list.
+     */
     public Integer getOpponentCardListSize(){
         return opponentCardList.size();
     }
-
 }
